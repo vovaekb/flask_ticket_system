@@ -4,9 +4,11 @@ import datetime
 from app.models import Employee, ActionTicket, InformationTicket, Task
 from app import app
 
+
 # Create custom exception class
 class CustomError(Exception):
 	"""Input parameter error."""
+
 
 @app.errorhandler(CustomError)
 def handle_custom_exception(error):
@@ -21,6 +23,7 @@ def action_tickets():
     print(len(action_tickets))
     return jsonify({'action_tickets ': [ticket.serialized for ticket in action_tickets]}), 200 
 
+
 @app.route('/information_tickets', methods=['GET'])
 def information_tickets():
     information_tickets = app.session.query(InformationTicket).all()
@@ -32,9 +35,14 @@ def create_action_tickets():
     data = request.get_json()
     print(data)
 
-    date_format = "%Y-%m-%dT%H:%M:%S" # '%d.%m.%Y'
-    until_date = datetime.datetime.strptime(data['until_date'], date_format)
-    completion_date = datetime.datetime.strptime(data['completion_date'], date_format) if 'completion_date' in data else None 
+    date_format = "%Y-%m-%dT%H:%M:%S"
+    until_date = datetime.datetime.strptime(
+        data['until_date'], date_format
+    )
+    completion_date = datetime.datetime.strptime(
+        data['completion_date'],
+        date_format
+    ) if 'completion_date' in data else None
     title = data['title']
 
     try:
@@ -64,6 +72,5 @@ def create_information_tickets():
 @app.route('/create_employee', methods=['GET', 'POST'])
 def create_employee():
     data = request.get_json()
-    print(data)
     return jsonify({'data': data})
 

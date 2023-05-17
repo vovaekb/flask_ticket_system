@@ -13,8 +13,7 @@ class Employee(database.Base):
     name = Column(UnicodeText)
     level = Column(Integer)
     information_tickets = relationship('InformationTicket', secondary='link')
-    # work_shifts = relationship('WorkShiftLog', backref='employee_id',
-    #                               lazy='dynamic')
+
 
 class ActionTicket(database.Base):
     __tablename__ = 'action_ticket'
@@ -23,7 +22,9 @@ class ActionTicket(database.Base):
     author_id = Column(Integer)
     assignee_id = Column(Integer)
     date_format = "%Y-%m-%dT%H:%M:%S"
-    creation_date = Column(DateTime, server_default=datetime.datetime.now().strftime(date_format))
+    creation_date = Column(DateTime,
+                           server_default=datetime.datetime.now()
+                           .strftime(date_format))
     until_date = Column(DateTime)
     completion_date = Column(DateTime, nullable=True)
     title = Column(UnicodeText)
@@ -72,7 +73,6 @@ class ActionTicket(database.Base):
             'priority': self.priority_string(),
             'type': self.type_string(),
             'text': self.text,
-            # 'tasks': relationship('Task', back_populates='action_ticket') # backref='action_ticket')
         }
 
 
@@ -96,7 +96,6 @@ class InformationTicket(database.Base):
             'id': self.id,
             'text': self.text,
             'status': self.status_string(),
-            # 'assignees': self.assignees
         }
 
 
@@ -114,14 +113,6 @@ class Task(database.Base):
             'category': self.category,
             'action_ticket': self.action_ticket.title 
         }
-
-'''
-class WorkShiftLog(database.Base):
-    __tablename__ = 'workshiftlog'
-    employee_id = Column(Integer, ForeignKey('employee.id'))
-    start_time = Column(DateTime)
-    end_time = Column(DateTime)
-'''
 
 
 class Link(database.Base):
