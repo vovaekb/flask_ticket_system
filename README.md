@@ -1,8 +1,8 @@
 # flask_ticket_system
 
 ⚔️ Simple Flask app for displaying player scores in game contest.
-Setup and running
 
+##  Setup and running
 We need to install Redis server. Then install all necessary python packages using requirements.txt
 
 ```
