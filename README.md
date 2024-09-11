@@ -8,6 +8,10 @@ We need to install Redis server. Then install all necessary python packages usin
 ```
 pip install -r requirements.txt
 ```
+Start Flask app:
+```
+python3 run.py
+```
 
 Navigate to url http://127.0.0.1:5000/ in browser.
 
